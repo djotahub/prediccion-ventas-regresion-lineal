@@ -1,58 +1,59 @@
-# Análisis Predictivo del Impacto Publicitario en Ventas
-*Análisis de Regresión Lineal Simple sobre el Dataset "Advertising"*
+# Análisis Predictivo y Optimización del Presupuesto de Marketing
+*Un Caso de Estudio de Regresión Lineal Simple y Múltiple sobre el Dataset "Advertising"*
 
 ---
 
 ## 1. Planteamiento Estratégico (Business Case)
 
-El presente análisis aborda una cuestión fundamental para la optimización del presupuesto de marketing: **cuantificar el retorno de inversión (ROI) del canal de publicidad en televisión**.
+Este proyecto aborda una cuestión fundamental para la optimización del presupuesto de marketing: **cuantificar y comparar el retorno de inversión (ROI) de los diferentes canales publicitarios** para maximizar el impacto en las ventas.
 
-El objetivo es desarrollar un modelo predictivo que permita al liderazgo tomar decisiones informadas sobre la asignación de capital, transformando el gasto publicitario de un centro de coste a una inversión medible y predecible.
-
----
-
-## 2. Enfoque Analítico
-
-Se implementó un flujo de trabajo riguroso, abarcando desde la exploración de datos hasta la evaluación del modelo, para garantizar la fiabilidad de las conclusiones.
-
-* **Análisis Exploratorio (EDA):** Se validó la hipótesis de una correlación positiva entre la inversión en TV y las ventas mediante visualización de datos.
-* **Modelado Estadístico:** Se aplicó un modelo de **Regresión Lineal Simple** utilizando la biblioteca `scikit-learn` para modelar la relación matemática entre las variables.
-* **Validación del Modelo:** Para asegurar la capacidad de generalización del modelo a datos futuros, el dataset fue particionado en conjuntos de entrenamiento (70%) y de prueba (30%).
+El objetivo es desarrollar un modelo predictivo robusto que permita al liderazgo tomar decisiones informadas sobre la asignación de capital, basándose en evidencia cuantitativa.
 
 ---
 
-## 3. Hallazgos Cuantitativos y su Impacto en el Negocio
+## 2. Enfoque Analítico y Evolución del Modelo
 
-El modelo resultante proporciona insights claros y accionables, encapsulados en la siguiente ecuación predictiva:
+Se implementó un flujo de trabajo iterativo para construir y refinar el modelo predictivo, garantizando la fiabilidad y la interpretabilidad de las conclusiones.
 
-> **Ventas** = 7.24 + 0.046 × **Inversión en TV**
+1.  **Modelo Base (Regresión Simple):** Se estableció una línea base inicial modelando las ventas únicamente en función de la inversión en TV.
+2.  **Modelo Extendido (Regresión Múltiple):** Se incorporaron las variables de inversión en `Radio` y `Newspaper` para crear un modelo más completo.
+3.  **Diagnóstico y Optimización:** Se realizó un análisis de correlación (multicolinealidad) para identificar predictores redundantes. Basado en los hallazgos, se eliminó la variable `Newspaper` para construir un modelo final más simple y eficiente sin sacrificar poder predictivo.
 
-### Interpretación Ejecutiva:
+---
 
-* **Línea Base de Ventas (Intercepto):** Se estima una base de ventas de **~7,240 unidades** que es independiente de la inversión en TV, atribuible a otros factores como la reputación de la marca y otros canales de marketing.
+## 3. Hallazgos Cuantitativos: Comparativa de Modelos
 
-* **Retorno de Inversión del Canal (Coeficiente):** El hallazgo más crítico es que por cada **$1,000** adicionales invertidos en publicidad televisiva, el modelo predice un aumento promedio de **46 unidades** en las ventas.
+La evolución del modelo demuestra una mejora significativa en el rendimiento. Los resultados del conjunto de prueba son los siguientes:
 
-### Fiabilidad del Modelo:
+| Modelo | R² (Poder Explicativo) | MAE (Error Promedio) | Conclusión Clave |
+| :--- | :--- | :--- | :--- |
+| **1. Simple (solo TV)** | 0.67 | ± 2,275 unidades | La TV es un predictor importante, pero insuficiente por sí solo. |
+| **2. Múltiple (3 Features)** | 0.90 | ± 1,198 unidades | **El modelo mejora drásticamente.** TV y Radio son drivers clave. |
+| **3. Optimizado (TV + Radio)**| **0.90** | **± 1,192 unidades**| **El mejor modelo.** Igual de potente pero más simple y robusto. |
 
-* **Poder Explicativo (R²):** **60%**. El modelo explica el 60% de la variabilidad en las ventas, confirmando que la inversión en TV es un motor significativo del rendimiento comercial.
-* **Precisión Predictiva (MAE):** **± 2,200 unidades**. Las predicciones del modelo tienen un margen de error promedio de 2,200 unidades, un factor a considerar en la planificación de inventario y objetivos.
+### Coeficientes del Modelo Final (Optimizado):
+
+* **Intercepto:** 2.92 (base de ventas de ~2,920 unidades sin inversión).
+* **Coeficiente `tv`:** 0.045
+* **Coeficiente `radio`:** 0.188
+
+### Interpretación Ejecutiva del Modelo Ganador:
+
+* Por cada **$1,000** invertidos en **TV**, se espera un aumento promedio de **45 unidades** en ventas.
+* Por cada **$1,000** invertidos en **Radio**, se espera un aumento promedio de **188 unidades** en ventas.
+
+**Insight Crítico:** El canal de Radio tiene un ROI aproximadamente **4 veces superior** al de la TV, y la inversión en Periódicos (`Newspaper`) no tiene un impacto estadísticamente significativo cuando ya se consideran los otros dos canales.
 
 ---
 
 ## 4. Conclusión Estratégica y Recomendaciones
 
-**Conclusión:** La inversión en publicidad televisiva es un driver de ventas efectivo y su impacto es ahora cuantificable. El modelo actual sirve como una herramienta sólida para la planificación presupuestaria inicial.
+**Conclusión:** Se ha desarrollado un modelo de regresión lineal múltiple optimizado, capaz de explicar el **90% de la variabilidad en las ventas** con un alto grado de precisión.
 
-**Recomendación:** Dado que el 40% de la variabilidad de las ventas aún no se explica, se recomienda proceder con el desarrollo de un **modelo de Regresión Múltiple**. La inclusión de datos de inversión en `Radio` y `Newspaper` permitirá una visión holística del ecosistema de marketing y, previsiblemente, aumentará la precisión y el poder explicativo de nuestros pronósticos.
+**Recomendación:** Se recomienda al departamento de marketing reevaluar la asignación de presupuesto, priorizando la inversión en el canal de **Radio** debido a su significativamente mayor retorno de inversión. La inversión en Periódicos debería ser reconsiderada o auditada, ya que no demuestra un impacto directo en las ventas según este modelo.
 
 ---
 
 ## 5. Detalles Técnicos y Reproducibilidad
 
-El análisis completo está disponible en el Jupyter Notebook (`tu_notebook.ipynb`). Para reproducir los resultados, se requiere un entorno Python 3.9+ con las siguientes dependencias principales:
-
-* `pandas`
-* `scikit-learn`
-* `matplotlib`
-* `seaborn`
+El análisis completo y el código se encuentran en el Jupyter Notebook del repositorio. El entorno y las dependencias requeridas para reproducir el análisis están documentadas en el mismo.
